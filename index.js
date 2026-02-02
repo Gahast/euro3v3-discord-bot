@@ -1,22 +1,20 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, Events } from "discord.js";
 
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
+  intents: [GatewayIntentBits.Guilds],
 });
 
-client.once("ready", () => {
+client.once(Events.ClientReady, () => {
   console.log(`Logged in as ${client.user.tag}`);
 });
 
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
+client.on(Events.InteractionCreate, async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
 
-  if (message.content === "!ping") {
-    message.reply("pong");
+  console.log("Received command:", interaction.commandName);
+
+  if (interaction.commandName === "euro_ping") {
+    await interaction.reply("🏓 Pong from Euro3v3");
   }
 });
 
