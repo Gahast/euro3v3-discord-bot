@@ -1,0 +1,8 @@
+{
+  "deploy": {
+    "startCommand": "node index.js",
+    "healthcheck": {
+      "path": null
+    }
+  }
+}
